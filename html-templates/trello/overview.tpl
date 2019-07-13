@@ -33,6 +33,32 @@
     </table>
 
     <header class="section-header">
+        <h2 class="header-title title-2">Custom Field Sums by List</h2>
+    </header>
+    <table border="1" class="reading-width well">
+        <tr>
+            <th>List</th>
+            <th>Total</th>
+        </tr>
+
+        {foreach from=$board->cards->sumNumberFieldsByList() item=sums key=listId}
+            <tr>
+                <td>{$board->lists[$listId].name|escape}</td>
+                <td>
+                    <table border="1">
+                        {foreach from=$sums item=sum key=customFieldId}
+                            <tr>
+                                <th scope="row">{$board->customFields[$customFieldId].name|escape}</th>
+                                <td>{number_format($sum)}</td>
+                            </tr>
+                        {/foreach}
+                    </table>
+                </td>
+            </tr>
+        {/foreach}
+    </table>
+
+    <header class="section-header">
         <h2 class="header-title title-2">Custom Field Totals</h2>
     </header>
     <table border="1" class="reading-width well">
@@ -43,7 +69,6 @@
             </tr>
         {/foreach}
     </table>
-
 
     <header class="section-header">
         <h2 class="header-title title-2">Processed Cards</h2>

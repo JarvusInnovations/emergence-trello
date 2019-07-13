@@ -13,6 +13,16 @@ TrelloPowerUp.initialize({
         },
         {
             icon: window.ICON_COINS,
+            text: 'Lists',
+            condition: 'always',
+            callback: t => t.board('id').then(board => t.popup({
+                title: 'Field Totals by List',
+                url: `https://trello.jarv.us/trello/${board.id}/list-totals?key=${window.JARVUS_KEY}`,
+                height: 400
+            }))
+        },
+        {
+            icon: window.ICON_COINS,
             text: 'Board',
             condition: 'always',
             callback: t => t.board('id').then(board => t.popup({

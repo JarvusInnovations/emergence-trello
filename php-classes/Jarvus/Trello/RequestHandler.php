@@ -24,7 +24,7 @@ class RequestHandler extends \RequestHandler
 
         $board = new Board($boardId, [
             'cards' => [
-                'fields' => 'idShort,name,labels',
+                'fields' => 'idShort,name,labels,idList',
                 'customFieldItems' => true
             ]
         ]);
@@ -36,6 +36,8 @@ class RequestHandler extends \RequestHandler
                 return static::handleOverviewRequest($board);
             case 'label-totals':
                 return static::handleLabelTotalsRequest($board);
+            case 'list-totals':
+                return static::handleListTotalsRequest($board);
             case 'field-totals':
                 return static::handleFieldTotalsRequest($board);
             default:
@@ -58,6 +60,13 @@ class RequestHandler extends \RequestHandler
     public static function handleLabelTotalsRequest(Board $board)
     {
         return static::respond('embeds/label-totals', [
+            'board' => $board
+        ]);
+    }
+
+    public static function handleListTotalsRequest(Board $board)
+    {
+        return static::respond('embeds/list-totals', [
             'board' => $board
         ]);
     }

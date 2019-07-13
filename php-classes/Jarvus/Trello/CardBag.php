@@ -50,4 +50,26 @@ class CardBag extends AbstractBag
 
         return $numbersByLabel;
     }
+
+    public function sumNumberFieldsByList()
+    {
+        $numbersByList = [];
+
+        foreach ($this->data as $card) {
+            foreach ($card['customFieldItems'] as $customFieldItem) {
+                if (!isset($customFieldItem['value']['number'])) {
+                    # skip non-numeric custom fields
+                    continue;
+                }
+
+                $numbersByList[$card['idList']][$customFieldItem['idCustomField']] += $customFieldItem['value']['number'];
+            }
+        }
+
+        if ($this->board) {
+            uksort($numbersByList, [$this->board->lists, 'idSorter']);
+        }
+
+        return $numbersByList;
+    }
 }

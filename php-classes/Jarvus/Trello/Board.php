@@ -24,6 +24,8 @@ class Board
         switch ($property) {
             case 'cards':
                 return $this->getCards();
+            case 'lists':
+                return $this->getLists();
             case 'labels':
                 return $this->getLabels();
             case 'customFields':
@@ -38,6 +40,7 @@ class Board
         switch ($property) {
             case 'cards':
             case 'labels':
+            case 'lists':
             case 'customFields':
                 return true;
             default:
@@ -74,6 +77,15 @@ class Board
         ]);
 
         return new LabelBag($data, $this);
+    }
+
+    protected function getLists()
+    {
+        $data = API::request("/boards/{$this->id}/lists", [
+            'get' => $this->options['lists']
+        ]);
+
+        return new ListBag($data, $this);
     }
 
     protected function getCustomFields()
