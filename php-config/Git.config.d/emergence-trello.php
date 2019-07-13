@@ -10,6 +10,7 @@ Git::$repositories['emergence-trello'] = [
         'php-classes/Jarvus/Trello',
         'php-config/Jarvus/Trello',
         'php-config/Git.config.d/emergence-trello.php',
+        'site-root/js/trello',
         'site-root/trello.php'
     ]
 ];

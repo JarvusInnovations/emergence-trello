@@ -12,6 +12,11 @@ class RequestHandler extends \RequestHandler
             $GLOBALS['Session']->requireAccountLevel('Staff');
         }
 
+        // handle power-up request
+        if (static::peekPath() == '*power-up') {
+            return static::handlePowerUpRequest();
+        }
+
         // get board details
         if (!$boardId = static::shiftPath()) {
             return static::throwInvalidRequestError('boardId must be next path component');
@@ -36,6 +41,11 @@ class RequestHandler extends \RequestHandler
             default:
                 return static::throwNotFoundError();
         }
+    }
+
+    public static function handlePowerUpRequest()
+    {
+        return static::respond('power-up');
     }
 
     public static function handleOverviewRequest(Board $board)
